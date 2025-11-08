@@ -12,11 +12,17 @@
 library(shiny)
 box::use(
   bslib[page_sidebar, bs_theme, font_collection, sidebar],
-  jsonlite[fromJSON]
+  jsonlite[fromJSON],
+  logger[log_info, log_debug, log_warn, log_error, log_threshold, INFO]
 )
+
+# Initialize logging
+try(log_threshold(INFO), silent = TRUE)
+log_info("Launcher startup initiated")
 
 # --- Module Loading (done once at startup) ---
 modules_raw <- fromJSON("modules_list.json", simplifyDataFrame = FALSE)
+log_info(sprintf("Loaded %d module descriptors", length(modules_raw)))
 modules <- setNames(modules_raw, sapply(modules_raw, `[[`, "id"))
 
 # Lazy loading: only load modules when needed
@@ -26,6 +32,7 @@ module_envs <- new.env()
 # Function to load a module on-demand
 load_module <- function(id) {
   if (exists(id, envir = module_envs)) {
+    log_debug(sprintf("Reusing cached module '%s'", id))
     return(module_envs[[id]])
   }
   
@@ -41,6 +48,7 @@ load_module <- function(id) {
   )
   
   module_envs[[id]] <- loaded
+  log_info(sprintf("Module '%s' sourced from %s", id, mod$source))
   return(loaded)
 }
 
@@ -50,6 +58,7 @@ preload_ids <- sapply(modules, function(m) {
 })
 
 for (id in names(modules)[preload_ids]) {
+  log_debug(sprintf("Preloading module '%s'", id))
   load_module(id)
 }
 
@@ -117,6 +126,7 @@ server <- function(input, output, session) {
     
     # Lazy load module if needed
     loaded_module <- load_module(input$selected_app)
+    log_debug(sprintf("Rendering UI for module '%s'", input$selected_app))
     
     # Call UI function
     loaded_module$ui_func(input$selected_app)
@@ -140,6 +150,7 @@ server <- function(input, output, session) {
       # Mark as active
       current_active[[app_id]] <- TRUE
       active_servers(current_active)
+      log_info(sprintf("Initialized server for module '%s'", app_id))
     }
   }, ignoreInit = FALSE)
 }
