@@ -84,15 +84,20 @@ ui <- page_sidebar(
     tags$link(rel = "stylesheet", type = "text/css", href = "custom.css"),
     # Add resource hints for faster loading
     tags$link(rel = "preconnect", href = "https://fonts.googleapis.com"),
-    tags$link(rel = "dns-prefetch", href = "https://fonts.googleapis.com")
+    tags$link(rel = "dns-prefetch", href = "https://fonts.googleapis.com"),
+    # Ensure selectize dropdown is not clipped by sidebar/card scroll/overflow
+    tags$style(".sidebar { overflow: visible !important; } .sidebar .card-body, .sidebar .bslib-sidebar-layout { overflow: visible !important; } .selectize-control { z-index:2100; } .selectize-dropdown { z-index:2200; }")
   ),
   uiOutput("app_ui"),
   sidebar = sidebar(
-    selectInput(
-      "selected_app",
-      "Choose an app:",
-      selected = "module_template",
-      choices = app_choices
+    # Keep selector in sidebar, allow dropdown to overlay parent area
+    div(class = "mb-3 overflow-visible",
+        selectInput(
+          "selected_app",
+          "Choose an app:",
+          selected = "module_template",
+          choices = app_choices
+        )
     ),
     hr()
   ),
