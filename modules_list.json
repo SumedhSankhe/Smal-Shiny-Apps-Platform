@@ -7,5 +7,14 @@
     "server": "my_module_server",
     "preload": true,
     "cache": true
+  },
+  {
+    "id": "exploratory_module",
+    "label": "Exploratory Data Visualizations",
+    "source": "R/Exploratory_Module/app.R",
+    "ui": "exploratory_module_ui",
+    "server": "exploratory_module_server",
+    "preload": false,
+    "cache": false
   }
 ]
