@@ -1,4 +1,4 @@
-# TAP-Utility-WebApp
+# Small Shiny Apps Platform
 
 Welcome! This is a collection of small, easy-to-use apps for lab and data work. You can run any app by itself, or use the main launcher to pick from a menu.
 
@@ -57,8 +57,8 @@ Email: [sumedh.sankhe@gmail.com](mailto:sumedh.sankhe@gmail.com)
 ### Folder Structure & Module Organization
 
 ``` text
-TAP-Utility-WebApp/
-├── app_launcher.R           # Main launcher app
+Small-Shiny-Apps-Platform/
+├── app_launcher.R           # Main launcher for Small Shiny Apps Platform
 ├── modules_list.json        # Registry of available modules
 ├── R/                      # All modules live here, each in its own folder
 │   ├── Module_Template/    # Template for new modules

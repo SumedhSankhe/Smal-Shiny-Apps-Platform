@@ -96,7 +96,7 @@ ui <- page_sidebar(
     ),
     hr()
   ),
-  title = "TAP Utility Apps",
+  title = "Small Shiny Apps Platform",
   theme = bs_theme(
     version = 5,
     bootswatch = "litera",
