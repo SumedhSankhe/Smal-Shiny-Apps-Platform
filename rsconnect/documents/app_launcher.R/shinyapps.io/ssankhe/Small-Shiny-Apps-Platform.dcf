@@ -4,9 +4,9 @@ username: ssankhe
 account: ssankhe
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 15665004
-bundleId: 11151286
-url: https://ssankhe.shinyapps.io/TAP-Utility-WebApp/
+appId: 16008176
+bundleId: 11151305
+url: https://ssankhe.shinyapps.io/Small-Shiny-Apps-Platform/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
